@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BooksLib.main:war exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/BooksLib_main_war_exploded2</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BooksLib.main" />
+          <element id="directory" name="WEB-INF">
+            <element id="directory" name="lib">
+              <element id="library" level="project" name="Gradle: javax.servlet:javax.servlet-api:4.0.1" />
+            </element>
+            <element id="directory" name="classes">
+              <element id="jpa-descriptors" facet="BooksLib.main/jpa/JPA" />
+            </element>
+          </element>
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="BooksLib.main/web/Web Gradle : BooksLib-1.0-SNAPSHOT.war" />
+    </root>
+  </artifact>
+</component>
