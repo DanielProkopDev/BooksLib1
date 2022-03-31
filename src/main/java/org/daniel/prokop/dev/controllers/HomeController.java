@@ -17,17 +17,9 @@ public class HomeController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("message", "Spring MVC JSP Example!!");
+        model.addAttribute("message", "Spring MVC example with JSP");
         return "home";
     }
 
-    @GetMapping("/building/{buildingId}")
-    public String matrix(@PathVariable String buildingId, @MatrixVariable int g, @MatrixVariable int u, Model model){
-        List<String> dataList = new ArrayList<>();
-        dataList.add("building number: ".concat(buildingId));
-        dataList.add("ground floor flat number: "+ g);
-        dataList.add("uppler floor flat number: " + u);
-        model.addAttribute("dataList", dataList);
-        return "sandbox";
-    }
+
 }
