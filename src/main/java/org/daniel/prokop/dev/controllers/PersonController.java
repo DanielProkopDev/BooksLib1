@@ -65,12 +65,5 @@ public class PersonController {
         return "persons/show";
     }
 
-    // This was commented to move the implementation in the MissingRecordsHandler
-   /* @ExceptionHandler
-    public ModelAndView notFound(HttpServletRequest req, NotFoundException nfe) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("problem", "Malformed URL: " + req.getRequestURI() + "<br/>" + nfe.getMessage());
-        mav.setViewName("error");
-        return mav;
-    }*/
+   
 }
