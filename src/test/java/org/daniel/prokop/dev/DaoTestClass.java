@@ -112,7 +112,7 @@ public class DaoTestClass {
     void updateStorage(){
         person= personService.findByUsername("daniel123456").get();
         Books book = booksService.findBooksByTitle("Story of Kaliprostaks").get();
-        Set<Books> booksSet = new HashSet<>();
+        Set<Books> booksSet = person.getStorage();
         booksSet.add(book);
         personService.updateStorageByUsername(person.getUsername(),booksSet);
 

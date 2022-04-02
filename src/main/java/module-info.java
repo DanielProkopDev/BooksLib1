@@ -4,10 +4,12 @@ module BooksLib.main {
 
     requires org.apache.commons.lang3;
     requires java.sql;
-    requires ch.qos.logback.classic;
     requires org.slf4j;
     requires java.naming;
     requires java.annotation;
+
+
+
 
     requires spring.data.jpa;
     requires spring.context;

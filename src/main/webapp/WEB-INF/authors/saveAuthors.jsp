@@ -1,22 +1,22 @@
 <%--
   Created by IntelliJ IDEA.
   User: danie
-  Date: 30/03/2022
-  Time: 16:38
+  Date: 02/04/2022
+  Time: 15:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>
-        <spring:message code="author.title"/>
+        <spring:message code="home.title" />
     </title>
     <spring:theme var="cssStyle" code="css.style"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
@@ -96,38 +96,39 @@
         </ul>
     </div>
     <div class="content">
-        <table>
-            <tr>
-                <th><spring:message code="label.Author.firstname"/></th>
-                <td>${author.firstName}</td>
-            </tr>
-            <tr>
-                <th><spring:message code="label.Author.lastname"/></th>
-                <td>${author.lastName}</td>
-            </tr>
-            <tr>
-                <th><spring:message code="label.Author.birthdate"/></th>
-                <td>${author.birthDate}</td>
-            </tr>
-            <tr>
-                <th><spring:message code="label.Author.since"/></th>
-                <td>${author.registerDate}</td>
-            </tr>
-        </table>
+        <form:form method="POST" action="addAuthor" modelAttribute="author1">
+            <table>
+                <tr>
+                    <td>Author First Name:</td>
+                    <td>
+                        <form:input path="firstName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Author Last Name:</td>
+                    <td>
+                        <form:input path="lastName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Birth Date:</td>
+                    <td>
+                        <form:input path="birthDate" />
+                    </td>
+                </tr>
 
-        <h2>
-            <spring:url var="deleteUrl" value="/authors/delete/{id}">
-                <spring:param name="id" value="${author.id}"/>
-            </spring:url>
-            <form:form method="POST" action="${deleteUrl}" modelAttribute="author">
-                <input type="submit" value="DELETE" />
-            </form:form>
-        </h2>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Save Changes" />
+                    </td>
+                </tr>
+            </table>
+        </form:form>
     </div>
-
-    <div class="footer">
-        <p><spring:message code="footer.text"/></p>
-    </div>
+</div>
+<div class="footer">
+    <p><spring:message code="footer.text"/></p>
+</div>
 </div>
 </body>
 </html>

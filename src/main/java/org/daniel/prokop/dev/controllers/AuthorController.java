@@ -2,6 +2,7 @@ package org.daniel.prokop.dev.controllers;
 
 
 import org.daniel.prokop.dev.DAO.Author;
+import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.Person;
 import org.daniel.prokop.dev.SERVICE.AuthorService;
 import org.daniel.prokop.dev.SERVICE.PersonService;
@@ -10,10 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,5 +57,49 @@ public class AuthorController {
             throw new NotFoundException(Author.class, id);
         }
         return "authors/show";
+    }
+
+    @RequestMapping( value = "/saveAuthors",method = RequestMethod.GET)
+    public String saveAuthors() {
+        return "authors/saveAuthors";
+    }
+    @ModelAttribute(value = "author1")
+    public Author getAuthorObject() {
+        return new Author();
+    }
+
+    @RequestMapping( value = "/addAuthor",method = RequestMethod.POST)
+    public String addAuthors( @ModelAttribute("author1")Author author, Model model){
+
+
+        System.out.println(author);
+        authorService.save(author);
+
+        logger.info("Populating model with list...");
+        List<Author> authors =  authorService.findAll();
+        System.out.println(authors);
+        authors.sort(COMPARATOR_BY_ID);
+        model.addAttribute("authors", authors);
+        System.out.println(model.getAttribute("authors"));
+        return "redirect:/authors/list";
+    }
+
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
+    public String deleteAuthors(@PathVariable(value = "id") Long id,Model model){
+
+        Author author = authorService.findById(id).orElseThrow(() -> new NotFoundException(Books.class, id));
+
+        System.out.println("Removing Author:" + author);
+
+        authorService.delete(author);
+
+
+        logger.info("Populating model with list...");
+        List<Author> authors =  authorService.findAll();
+        System.out.println(authors);
+        authors.sort(COMPARATOR_BY_ID);
+        model.addAttribute("authors", authors);
+        System.out.println(model.getAttribute("authors"));
+        return "redirect:/authors/list";
     }
 }
