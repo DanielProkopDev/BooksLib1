@@ -148,14 +148,17 @@ repositories {
 dependencies {
 
 
+   
     implementation "javax.servlet:javax.servlet-api:4.0.1",'com.h2database:h2:2.1.210','org.apache.tomcat:tomcat:9.0.11','org.junit.jupiter:junit-jupiter-api:5.7.0',
             'org.junit.jupiter:junit-jupiter-engine:5.7.0',spring.webmvc,
             spring.data,spring.beans,testing.mockito, hibernate.ehcache, hibernate.em,
             hibernate.core, hibernate.validator, misc.javaxValidation,
-            misc.jacksonDatabind, misc.jacksonJsr310, spring.contextSupport, misc.jstl,testing.api, testing.platformRunner, testing.mockito,
+            misc.jacksonDatabind, misc.jacksonJsr310,misc.slf4j, spring.contextSupport, misc.jstl,testing.api, testing.platformRunner, testing.mockito,
             spring.test,
-            misc.lang3, 'ch.qos.logback:logback-classic:1.3.0-alpha12', misc.jsr250,misc.javaxPersistence, misc.hikari
-
+            misc.lang3, misc.jsr250,misc.javaxPersistence, misc.hikari
+    implementation(misc.logback) {
+        exclude group:'edu.washington.cs.types.checker', module:'checker-framework'
+    }
    /* compileOnly('com.h2database:h2:2.1.210','org.apache.tomcat:tomcat:9.0.11',spring.webmvc, spring.data,testing.mockito, hibernate.ehcache, hibernate.em,
             hibernate.core, hibernate.validator, misc.javaxValidation,
             misc.jacksonDatabind, misc.jacksonJsr310, spring.contextSupport, misc.jstl,
