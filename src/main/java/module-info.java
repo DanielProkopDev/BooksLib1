@@ -30,6 +30,10 @@ module BooksLib.main {
     requires spring.web;
     requires javax.servlet.api;
 
+    requires spring.security.core;
+    requires spring.security.web;
+    requires spring.security.config;
+
 
     opens org.daniel.prokop.dev to spring.core;
 

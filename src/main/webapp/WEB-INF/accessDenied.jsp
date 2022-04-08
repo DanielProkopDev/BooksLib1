@@ -1,23 +1,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: danie
-  Date: 30/03/2022
-  Time: 16:38
+  Date: 08/04/2022
+  Time: 15:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>
-        <spring:message code="home.title" />
+        <spring:message code="error.title"/>
     </title>
     <spring:theme var="cssStyle" code="css.style"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="${cssStyle}" />"/>
@@ -89,11 +86,13 @@
             </li>
             <li><c:if test="${menuTab eq 'books'}">
                 <strong><a href="<c:url value="/books/list"/>"><spring:message code="menu.books"/></a></strong>
-            </c:if>
+                </c:if>
                 <c:if test="${menuTab != 'books'}">
-                    <a href="<c:url value="/books/list"/>"><spring:message code="menu.books"/></a>
+                <a href="<c:url value="/books/list"/>"><spring:message code="menu.books"/></a>
                 </c:if>
             </li>
+
+
             <sec:authorize access="isAuthenticated()">
                 <li>
                     <spring:url value="/logout" var="logoutUrl"/>
@@ -105,62 +104,21 @@
             </sec:authorize>
         </ul>
     </div>
-    <div class="content">
-        <h2>
-            <spring:message code="users.list.title"/>
-        </h2>
 
-        <div class="persons">
-            <table>
-                <thead>
-                <tr>
-                    <td>
-                        <spring:message code="label.User.count"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.username"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.firstname"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.lastname"/>
-                    </td>
-                </tr>
-                </thead>
-                <c:forEach var="user" items="${users}">
-                    <tr>
-                        <td>
-                            <spring:url var="showUrl" value="{id}">
-                                <spring:param name="id" value="${user.id}"/>
-                            </spring:url>
-                            <a href="${showUrl}">${user.id}</a>
-                        </td>
-                        <td>
-                                ${user.username}
-                        </td>
-                        <td>
-                                ${user.firstName}
-                        </td>
-                        <td>
-                                ${user.lastName}
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
+    <div class="content">
+        <h3>Security warning!</h3>
+        <h3><spring:message code="error.message"/></h3>
+        <div class="error">
+            You are not authorized to access this page!
         </div>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-        <h2>
-            <spring:url var="addUrl" value="{saveUsers}">
-                <spring:param name="saveUsers" value="saveUsers"/>
-            </spring:url>
-            <form:form method="GET" action="${addUrl}" modelAttribute="users">
-                <input type="submit" value="ADD" />
-            </form:form>
-        </h2>
-</sec:authorize>
     </div>
+
     <div class="footer">
+        <sec:authorize access="isAuthenticated()">
+            <p><spring:message code="user.loggedin"/>:
+                <sec:authentication property="principal.username"/>
+            </p>
+        </sec:authorize>
         <p><spring:message code="footer.text"/></p>
     </div>
 </div>

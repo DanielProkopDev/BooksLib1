@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.daniel.prokop.dev.DAO.util.DateProcessor;
+import org.daniel.prokop.dev.DAO.util.Salt;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -74,9 +75,14 @@ public class Users extends AbstractEntity {
     @Transient
     private String newPassword;
 
+    @JsonIgnore
+    @Transient
+    Salt salter= new Salt();
+
     public Users() {
         super();
         registerDate = LocalDateTime.now();
+        salt= salter.generateSalt(5).get();
     }
 
     public String getUsername() {

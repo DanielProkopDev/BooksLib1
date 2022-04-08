@@ -4,6 +4,7 @@ import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.Person;
 import org.daniel.prokop.dev.DAO.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -40,6 +41,10 @@ public interface UserRepo extends JpaRepository<Users,Long> {
 
     @Query("select u from Users u where u.registerDate=:rd")
     List<Users> findUsersByRegisterDate(@Param("rd") LocalDateTime date);
+
+    @Modifying
+    @Query("update Users set username=:un, firstName=:fn, lastName=:ln, password=:pw where id=:id")
+    void updateUser(@Param("id")Long id,@Param("un")String username,@Param("fn")String firstName,@Param("ln") String lastName,@Param("pw") String password);
 
    /* @Query("select p from Person p where p.username=:un")
     Set<Books> findStorageByUsername(@Param("un") String username);*/

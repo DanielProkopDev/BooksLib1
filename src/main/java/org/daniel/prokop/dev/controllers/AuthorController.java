@@ -26,6 +26,8 @@ public class AuthorController {
 
     private AuthorService authorService;
 
+    Author oldAuthor;
+
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
@@ -63,6 +65,7 @@ public class AuthorController {
     public String saveAuthors() {
         return "authors/saveAuthors";
     }
+
     @ModelAttribute(value = "author1")
     public Author getAuthorObject() {
         return new Author();
@@ -100,6 +103,33 @@ public class AuthorController {
         authors.sort(COMPARATOR_BY_ID);
         model.addAttribute("authors", authors);
         System.out.println(model.getAttribute("authors"));
+        return "redirect:/authors/list";
+    }
+
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editAuthor(@PathVariable(value = "id") Long id,Model model) {
+        Author author = authorService.findById(id).orElseThrow(() -> new NotFoundException(Author.class, id));
+        oldAuthor = author;
+        model.addAttribute("authors", author);
+        return "authors/edit";
+    }
+
+    @RequestMapping(value = "/edit/editAuthor",method = RequestMethod.POST)
+    public String updateAuthor(@ModelAttribute("authors") Author author, Model model){
+
+        System.out.println("Updating:"+ oldAuthor);
+        System.out.println("New Author:" + author);
+        authorService.updateAuthor(oldAuthor.getId(),author.getFirstName(),author.getLastName(),
+                author.getBirthDate());
+
+        logger.info("Populating model with list...");
+        List<Author> authorList =  authorService.findAll();
+        System.out.println(authorList);
+        authorList.sort(COMPARATOR_BY_ID);
+
+        model.addAttribute("authors", authorList);
+
         return "redirect:/authors/list";
     }
 }

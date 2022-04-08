@@ -154,7 +154,7 @@ dependencies {
             spring.data,spring.beans,testing.mockito, hibernate.ehcache, hibernate.em,
             hibernate.core, hibernate.validator, misc.javaxValidation,
             misc.jacksonDatabind, misc.jacksonJsr310,misc.slf4j, spring.contextSupport, misc.jstl,testing.api, testing.platformRunner, testing.mockito,
-            spring.test,
+            spring.test, spring.securityWeb, spring.securityTaglibs,spring.securityConfig,
             misc.lang3, misc.jsr250,misc.javaxPersistence, misc.hikari
     implementation(misc.logback) {
         exclude group:'edu.washington.cs.types.checker', module:'checker-framework'

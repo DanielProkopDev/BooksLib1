@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public class Salt {
 
-    private static final SecureRandom RAND = new SecureRandom();
+    private  final SecureRandom RAND = new SecureRandom();
 
-    public static Optional<String> generateSalt(final int length){
+    public  Optional<String> generateSalt(final int length){
         if(length < 1){
             System.err.println("error in generateSalt:length must be >0");
             return Optional.empty();

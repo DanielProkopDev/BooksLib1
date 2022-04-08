@@ -10,6 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -93,6 +94,15 @@
                     <a href="<c:url value="/books/list"/>"><spring:message code="menu.books"/></a>
                 </c:if>
             </li>
+            <sec:authorize access="isAuthenticated()">
+                <li>
+                    <spring:url value="/logout" var="logoutUrl"/>
+                    <form action="${logoutUrl}" id="logout" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                    <a href="#" onclick="document.getElementById('logout').submit();"><spring:message code="menu.logout"/></a>
+                </li>
+            </sec:authorize>
         </ul>
     </div>
     <div class="content">
@@ -140,6 +150,7 @@
                 </c:forEach>
             </table>
         </div>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
         <h2>
             <spring:url var="addUrl" value="{saveAuthors}">
                 <spring:param name="saveAuthors" value="saveAuthors"/>
@@ -148,6 +159,7 @@
                 <input type="submit" value="ADD" />
             </form:form>
         </h2>
+        </sec:authorize>
     </div>
     <div class="footer">
         <p><spring:message code="footer.text"/></p>

@@ -46,6 +46,8 @@ public interface UserService {
 
     Optional<Users> updateStorageByUsername(String username, Set<Books> newList);
 
+    void updateUser(@Param("id")Long id,@Param("un")String username,@Param("fn")String firstName,@Param("ln") String lastName,@Param("pw") String password);
+
     // List<User> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException;
 
     //User updatePassword(Person person, String password)throws MailSendingException;

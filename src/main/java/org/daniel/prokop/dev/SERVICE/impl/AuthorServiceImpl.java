@@ -1,12 +1,15 @@
 package org.daniel.prokop.dev.SERVICE.impl;
 
 import org.daniel.prokop.dev.DAO.Author;
+import org.daniel.prokop.dev.DAO.util.DateProcessor;
 import org.daniel.prokop.dev.REPO.AuthorRepo;
 import org.daniel.prokop.dev.SERVICE.AuthorService;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,5 +101,15 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> findAuthorsByFirstName(String firstName) {
         return authorRepo.findAuthorsByFirstName(firstName);
+    }
+
+    @Override
+    public void updateAuthor(Long id, String firstName, String lastName, LocalDateTime date) {
+        authorRepo.updateAuthor(id, firstName, lastName, date);
+    }
+
+    @Override
+    public void updateAuthorBirthDate(Long id, LocalDateTime date) {
+        authorRepo.updateAuthorBirthDate(id, date);
     }
 }

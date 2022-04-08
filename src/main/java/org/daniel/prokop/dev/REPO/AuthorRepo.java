@@ -51,6 +51,15 @@ public interface AuthorRepo extends JpaRepository<Author,Long> {
     @Query("update Author set lastName=:ln where id=:id")
     void updateAuthorLastName(@Param("ln")String lastName,@Param("id")Long id);
 
+    @Modifying
+    @Query("update Author set birthDate=:bd where id=:id")
+    void updateAuthorBirthDate(@Param("id")Long id,@Param("bd") LocalDateTime date);
+
+    @Modifying
+    @Query("update Author set firstName=:fn, lastName=:ln, birthDate=:bd where id=:id")
+    void updateAuthor(@Param("id")Long id,@Param("fn")String firstName,@Param("ln")String lastName,@Param("bd") LocalDateTime date);
+
+
    /* @Query("select p from Person p where p.username=:un")
     Set<Books> findStorageByUsername(@Param("un") String username);*/
 

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: danie
-  Date: 30/03/2022
-  Time: 16:38
+  Date: 08/04/2022
+  Time: 14:41
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page session="false" %>
@@ -106,63 +106,45 @@
         </ul>
     </div>
     <div class="content">
-        <h2>
-            <spring:message code="users.list.title"/>
-        </h2>
-
-        <div class="persons">
+        <form:form method="POST" action="editUser" modelAttribute="users">
             <table>
-                <thead>
                 <tr>
+                    <td>User UserName:</td>
                     <td>
-                        <spring:message code="label.User.count"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.username"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.firstname"/>
-                    </td>
-                    <td>
-                        <spring:message code="label.User.lastname"/>
+                        <form:input path="username" />
                     </td>
                 </tr>
-                </thead>
-                <c:forEach var="user" items="${users}">
-                    <tr>
-                        <td>
-                            <spring:url var="showUrl" value="{id}">
-                                <spring:param name="id" value="${user.id}"/>
-                            </spring:url>
-                            <a href="${showUrl}">${user.id}</a>
-                        </td>
-                        <td>
-                                ${user.username}
-                        </td>
-                        <td>
-                                ${user.firstName}
-                        </td>
-                        <td>
-                                ${user.lastName}
-                        </td>
-                    </tr>
-                </c:forEach>
+                <tr>
+                    <td>User First Name:</td>
+                    <td>
+                        <form:input path="firstName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>User Last Name:</td>
+                    <td>
+                        <form:input path="lastName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>User Password:</td>
+                    <td>
+                        <form:input path="password" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Save Changes" />
+                    </td>
+                </tr>
             </table>
-        </div>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-        <h2>
-            <spring:url var="addUrl" value="{saveUsers}">
-                <spring:param name="saveUsers" value="saveUsers"/>
-            </spring:url>
-            <form:form method="GET" action="${addUrl}" modelAttribute="users">
-                <input type="submit" value="ADD" />
-            </form:form>
-        </h2>
-</sec:authorize>
+        </form:form>
     </div>
-    <div class="footer">
-        <p><spring:message code="footer.text"/></p>
-    </div>
+</div>
+<div class="footer">
+    <p><spring:message code="footer.text"/></p>
+</div>
 </div>
 </body>
 </html>

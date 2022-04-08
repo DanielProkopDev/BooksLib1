@@ -3,6 +3,7 @@ package org.daniel.prokop.dev.SERVICE;
 import org.daniel.prokop.dev.DAO.Author;
 import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.Person;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
@@ -40,6 +41,11 @@ public interface AuthorService {
     List<Author> findAuthorsByFirstNameLike(String firstName);
 
     List<Author> findAuthorsByFirstName(@Param("fn")String firstName);
+
+    void updateAuthor(@Param("id")Long id,@Param("fn")String firstName,@Param("ln")String lastName,@Param("bd") LocalDateTime date);
+
+    void updateAuthorBirthDate(@Param("id")Long id,@Param("bd") LocalDateTime date);
+
     // List<Person> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException;
 
 }
