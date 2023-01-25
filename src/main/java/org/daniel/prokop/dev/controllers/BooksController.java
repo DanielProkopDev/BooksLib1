@@ -1,8 +1,10 @@
 package org.daniel.prokop.dev.controllers;
 
+import org.daniel.prokop.dev.DAO.Author;
 import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.util.BookStatus;
 import org.daniel.prokop.dev.DAO.util.BookType;
+import org.daniel.prokop.dev.SERVICE.AuthorService;
 import org.daniel.prokop.dev.SERVICE.BooksService;
 import org.daniel.prokop.dev.SERVICE.wrappers.BookWrapper;
 import org.daniel.prokop.dev.webexceptions.NotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.daniel.prokop.dev.DAO.util.Functions.COMPARATOR_BY_ID;
 
@@ -26,8 +29,11 @@ public class BooksController {
 
     private BooksService booksService;
 
-    public BooksController(BooksService booksService) {
+    private AuthorService authorService;
+
+    public BooksController(BooksService booksService, AuthorService authorService) {
         this.booksService = booksService;
+        this.authorService = authorService;
     }
 
     private Books oldBook;
@@ -104,7 +110,18 @@ public class BooksController {
     public String addBooks( @ModelAttribute("books1")Books book, Model model){
 
         System.out.println(book);
-        booksService.save(book);
+        System.out.println(book.getAuthorfname());
+        System.out.println(book.getAuthorlname());
+        System.out.println(book.getBirthDate());
+
+        Optional<Author> author = (authorService.findAuthorByCompleteName(book.getAuthorfname(),book.getAuthorlname()));
+
+        if(author.isPresent()) {
+
+            booksService.save(book);
+            Author author1 = authorService.findAuthorByCompleteName(book.getAuthorfname(),book.getAuthorlname()).get();
+            author1.addBook(book);
+            authorService.save(author1);
 
         logger.info("Populating model with list...");
         List<Books> books =  booksService.findAll();
@@ -112,8 +129,26 @@ public class BooksController {
         books.sort(COMPARATOR_BY_ID);
 
         model.addAttribute("books", books);
+        }else{
+            Author author1 = new Author();
+            author1.setFirstName(book.getAuthorfname());
+            author1.setLastName(book.getAuthorlname());
+            author1.setBirthDate(book.getBirthDate());
+            authorService.save(author1);
+            booksService.save(book);
+            author1.addBook(book);
+            authorService.save(author1);
+
+            logger.info("Populating model with list...");
+            List<Books> books =  booksService.findAll();
+            System.out.println(books);
+            books.sort(COMPARATOR_BY_ID);
+
+            model.addAttribute("books", books);
+        }
 
         return "redirect:/books/list";
+
     }
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
@@ -142,7 +177,7 @@ public class BooksController {
         System.out.println("New Book:" + book);
         booksService.updateBookByTitle(oldBook.getId(),book.getTitle(),book.getAuthorfname(),
                 book.getAuthorlname(),book.getPrice(),book.getStatus(),book.getGenre(),
-                book.getDetailedDescription(),book.getNotes());
+                book.getDetailedDescription(),book.getAmount(),book.getNotes());
 
         logger.info("Populating model with list...");
         List<Books> books =  booksService.findAll();

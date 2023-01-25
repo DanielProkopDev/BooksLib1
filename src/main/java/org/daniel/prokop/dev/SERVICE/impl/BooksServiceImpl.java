@@ -99,13 +99,18 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
+    public Integer getCount(Books book) {
+        return booksRepo.findBooksById(book.getId()).get().getAmount();
+    }
+
+    @Override
     public void delete(Books book) {
          booksRepo.delete(book);
     }
 
     @Override
     public void updateBookByTitle(Long id, String title, String authorfname, String authorlname,
-                                             Integer price, BookStatus status, BookType bookType, String detaileddescription, String notes) {
-         booksRepo.updateBookByTitle(id,title,authorfname,authorlname,price,status,bookType,detaileddescription,notes);
+                                             Integer price, BookStatus status, BookType bookType, String detaileddescription,Integer amount, String notes) {
+         booksRepo.updateBookByTitle(id,title,authorfname,authorlname,price,status,bookType,detaileddescription,amount,notes);
     }
 }

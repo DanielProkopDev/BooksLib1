@@ -4,10 +4,12 @@ package org.daniel.prokop.dev.DAO;
 import org.daniel.prokop.dev.DAO.util.BookStatus;
 import org.daniel.prokop.dev.DAO.util.BookType;
 import org.daniel.prokop.dev.DAO.util.DateProcessor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +32,10 @@ public class Books extends AbstractEntity{
     @Column(name="authorlname")
     private String authorlname;
 
+    @Transient
+    @DateTimeFormat(pattern = DateProcessor.DATE_FORMAT)
+    private LocalDateTime birthDate;
+
     @Column(name="detaileddescription")
     private String detailedDescription;
 
@@ -37,6 +43,9 @@ public class Books extends AbstractEntity{
     @Column(name="price")
     private Integer price;
 
+
+    @Column(name="amount")
+    private Integer amount;
     @NotNull
     @Column(name="status")
     @Enumerated(EnumType.STRING)
@@ -83,6 +92,15 @@ public class Books extends AbstractEntity{
     public void setAuthorlname(String authorlname) {
         this.authorlname = authorlname;
     }
+
+    public LocalDateTime getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDateTime birthDate) {
+        this.birthDate = birthDate;
+    }
+
 
     public String getDetailedDescription() {
         return detailedDescription;
@@ -173,6 +191,14 @@ public class Books extends AbstractEntity{
 
     public void setPersons(Set<Person> persons) {
         this.persons = persons;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     @Override

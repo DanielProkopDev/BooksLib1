@@ -58,11 +58,17 @@
                 </table>
             </form>
 
+
             <c:if test="${not empty param.auth_error}">
                 <div id="errors" class="error">
                     <p><spring:message code="login.fail"/>: ${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
                 </div>
             </c:if>
+<div class="register" id="register">
+    <li>
+              <strong> <a type="button" href="<c:url value="/register"/>"><spring:message code="menu.register"/></a></strong>
+    </li>
+</div>
         </div>
     </div>
     <div class="footer">

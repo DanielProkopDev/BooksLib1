@@ -127,9 +127,21 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Birth Date(YYYY-MM-DD HH:MM):</td>
+                    <td>
+                        <form:input path="birthDate" />
+                    </td>
+                </tr>
+                <tr>
                     <td>Price:</td>
                     <td>
                         <form:input path="price" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Amount:</td>
+                    <td>
+                        <form:input path="amount" />
                     </td>
                 </tr>
                 <tr>
@@ -144,12 +156,11 @@
                         <form:radiobuttons path="status" items="${status}" />
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Save Changes" />
-                    </td>
-                </tr>
             </table>
+                <div class="button">
+                        <input type="submit" value="Save Changes" />
+                </div>
+
         </form:form>
     </div>
 </div>

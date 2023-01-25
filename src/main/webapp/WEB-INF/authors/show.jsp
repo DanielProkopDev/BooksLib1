@@ -123,6 +123,10 @@
                 <th><spring:message code="label.Author.since"/></th>
                 <td>${author.registerDate}</td>
             </tr>
+            <tr>
+                <th><spring:message code="label.Author.books"/></th>
+                <td>${author.authorSet}</td>
+            </tr>
         </table>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
         <h2>

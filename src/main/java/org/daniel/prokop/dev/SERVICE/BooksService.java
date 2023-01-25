@@ -40,8 +40,10 @@ public interface BooksService {
 
     Books updateGenre(Books book, BookType newBookType);
 
+    Integer getCount(Books book);
+
     void delete(Books book);
 
     void updateBookByTitle(Long id,String title,String authorfname,String authorlname,
-                                      Integer price,BookStatus status,BookType bookType,String detaileddescription,String notes);
+                                      Integer price,BookStatus status,BookType bookType,String detaileddescription,Integer amount,String notes);
 }

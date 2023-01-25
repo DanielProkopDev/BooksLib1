@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.daniel.prokop.dev.DAO.util.DateProcessor;
 import org.daniel.prokop.dev.DAO.util.Salt;
+import org.daniel.prokop.dev.DAO.util.UserRole;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -54,14 +55,19 @@ public class Users extends AbstractEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @Size(min = 4, max = 50)
-    @Column(nullable = false)
+    @Column( name = "password",nullable = false)
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
-    @Size(min = 4, max = 50)
     @Column(nullable = false)
     private String salt;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull
+    @Column(name = "roles",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole roles;
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateProcessor.DATE_FORMAT)
@@ -147,6 +153,14 @@ public class Users extends AbstractEntity {
 
     public void setUserSet(Set<Books> userSet) {
         this.userSet = userSet;
+    }
+
+    public UserRole getRoles() {
+        return roles;
+    }
+
+    public void setRoles(UserRole roles) {
+        this.roles = roles;
     }
 
     public void addBook(Books books){

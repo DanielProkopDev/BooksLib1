@@ -1,5 +1,17 @@
+body {
+    --color-primary: rgb(34,139,34);
+    --color-error: rgb(231,0,100);
+    --color-success:rgb(137,200,46);
+    --color-border:rgb(60,60,59);
+    --border-radius:50px;
+
+
+    background: linear-gradient(to left, var(--color-primary), #fff);;
+}
+
+
 .banner {
-    background: url("../images/banner-green.png") no-repeat 0px center;
+    background: url("../images/banner-green2.png") no-repeat 0px center;
     height: 380px;
 }
 
@@ -7,6 +19,7 @@ table {
     background-color: #FFFFE0;
     border-collapse: collapse;
     color: #000;
+    border-radius: 15px;
 }
 
 table thead{
@@ -14,15 +27,18 @@ table thead{
     color: white;
     width: 50%;
     font-weight: bold;
+    border-radius: 15px;
 }
 
 table td {
     padding: 5px;
     border: 0;
+    border-radius: 15px;
 }
 
 table td {
     border-bottom: 1px dotted #BDB76B;
+    border-radius: 15px;
 }
 
 .menu{
@@ -36,6 +52,8 @@ table td {
     clear:both;
     text-align:left;
     padding:10px;
+    position: fixed;
+    bottom:0px;
 }
 
 .error{
@@ -45,3 +63,31 @@ table td {
     color: #D8000C;
     background-color: #FFBABA;
 }
+
+.button{
+    padding: 5px;
+}
+.button input{
+    border-radius: 10px;
+    background: goldenrod;
+    font-weight: bold;
+    border: 0;
+    height: 25px;
+    width: fit-content;
+}
+.button input:hover{
+    border: 1px;
+    background: gold;
+}
+.register a {
+    display: block;
+    font-weight: bold;
+    color: black;
+    padding: 5px;
+    text-underline: none;
+    text-decoration: none;
+    font-size: 25px;
+    width: 50px;
+}
+
+

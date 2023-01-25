@@ -45,6 +45,7 @@ public interface AuthorService {
     void updateAuthor(@Param("id")Long id,@Param("fn")String firstName,@Param("ln")String lastName,@Param("bd") LocalDateTime date);
 
     void updateAuthorBirthDate(@Param("id")Long id,@Param("bd") LocalDateTime date);
+    public void addBook(Books books);
 
     // List<Person> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException;
 

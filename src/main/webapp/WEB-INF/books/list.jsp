@@ -139,6 +139,9 @@
             <spring:message code="label.Book.genre"/>
           </td>
           <td>
+            <spring:message code="label.Book.amount"/>
+          </td>
+          <td>
             <spring:message code="label.Book.notes"/>
           </td>
         </tr>
@@ -173,22 +176,27 @@
                 ${books.genre}
             </td>
             <td>
+                ${books.amount}
+            </td>
+            <td>
                 ${books.notes}
             </td>
           </tr>
         </c:forEach>
       </table>
     </div>
+<div class="button">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-    <h2>
+
       <spring:url var="addUrl" value="{saveBooks}">
         <spring:param name="saveBooks" value="saveBooks"/>
       </spring:url>
-      <form:form method="GET" action="${addUrl}" modelAttribute="books">
-        <input type="submit" value="ADD" />
+      <form:form method="GET" action="${addUrl}" modelAttribute="books" id="button1">
+        <input type="submit" id="addButton" value="ADD" />
       </form:form>
-    </h2>
+
 </sec:authorize>
+</div>
   </div>
   <div class="footer">
     <p><spring:message code="footer.text"/></p>

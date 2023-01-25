@@ -34,9 +34,10 @@ public interface BooksRepo extends JpaRepository<Books,Long> {
     @Query("select b from Books b where b.Genre=:genre")
     List<Books> findAllByGenreOrderByTitle(@Param("genre") BookType genre);
 
+
     @Modifying
-    @Query("update Books  set title =:tl, authorfname=:fname, authorlname=:lname, price=:pr, status=:status, Genre=:genre, detailedDescription=:dtds, notes=:notes  where id=:id")
+    @Query("update Books  set title =:tl, authorfname=:fname, authorlname=:lname, price=:pr, status=:status, Genre=:genre, detailedDescription=:dtds, amount=:cnt, notes=:notes  where id=:id")
     void updateBookByTitle(@Param("id")Long id,@Param("tl")String title, @Param("fname") String firstname, @Param("lname") String lastname,
                                       @Param("pr") Integer price, @Param("status")BookStatus status,@Param("genre") BookType genre,
-                                      @Param("dtds") String detaileddescription,@Param("notes") String notes);
+                                      @Param("dtds") String detaileddescription,@Param("cnt") Integer amount,@Param("notes") String notes);
 }

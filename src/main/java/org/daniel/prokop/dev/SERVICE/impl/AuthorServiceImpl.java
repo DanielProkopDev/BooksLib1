@@ -1,6 +1,7 @@
 package org.daniel.prokop.dev.SERVICE.impl;
 
 import org.daniel.prokop.dev.DAO.Author;
+import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.util.DateProcessor;
 import org.daniel.prokop.dev.REPO.AuthorRepo;
 import org.daniel.prokop.dev.SERVICE.AuthorService;
@@ -111,5 +112,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void updateAuthorBirthDate(Long id, LocalDateTime date) {
         authorRepo.updateAuthorBirthDate(id, date);
+    }
+
+    @Override
+    public void addBook(Books books) {
+
     }
 }

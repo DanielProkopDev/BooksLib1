@@ -1,5 +1,5 @@
 .banner{
-    background: url("../images/banner-blue.png") no-repeat 0px center;
+    background: url("../images/banner-blue2.png") no-repeat 0px center;
     height: 380px;
 }
 
@@ -7,9 +7,10 @@ a:link{color:#0000FF; text-decoration:underline; font-size:14px; background:tran
 a:hover{color:#228B22; text-decoration:underline; font-size:16px; background:transparent;}
 
 .content{
-    background-color: #E0F2F7;
+    background-color: deepskyblue;
     float:left;
     padding:10px;
+    border-radius: 20px;
 }
 
 .footer p {

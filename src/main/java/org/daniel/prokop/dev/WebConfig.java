@@ -3,7 +3,6 @@ package org.daniel.prokop.dev;
 
 import org.daniel.prokop.dev.webexceptions.MissingExceptionResolver;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
@@ -109,7 +108,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Ser
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/home");
-        registry.addViewController("/auth").setViewName("auth");
+        registry.addViewController("/auth").setViewName("login");
     }
 
     @Override

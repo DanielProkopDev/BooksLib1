@@ -1,5 +1,5 @@
 .banner {
-    background: url("../images/banner-green.png") no-repeat 0px center;
+    background: url("../images/banner-green2.png") no-repeat 0px center;
     height: 380px;
 }
 
@@ -18,9 +18,10 @@ a:hover {
 }
 
 .content {
-    background-color: #D8F6CE;
+    background-color: rgb(34,139,34);
     float: left;
     padding: 10px;
+    border-radius: 20px;
 }
 
 .footer p {

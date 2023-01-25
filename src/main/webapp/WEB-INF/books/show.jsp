@@ -129,6 +129,10 @@
         <td>${books.price}</td>
       </tr>
       <tr>
+        <th><spring:message code="label.Book.amount"/></th>
+        <td>${books.amount}</td>
+      </tr>
+      <tr>
         <th><spring:message code="label.Book.status"/></th>
         <td>${books.status}</td>
       </tr>
@@ -140,31 +144,32 @@
         <th><spring:message code="label.Book.notes"/></th>
         <td>${books.notes}</td>
       </tr>
+    </table>
+    <div class="button">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-      <tr>
-        <td>
+
           <spring:url var="editUrl" value="/books/edit/{id}">
             <spring:param name="id" value="${books.id}" />
           </spring:url>
           <form:form method="GET" action="${editUrl}" modelAttribute="books">
             <input type="submit" value="EDIT" />
           </form:form>
-        </td>
-      </tr>
+
 </sec:authorize>
+  </div>
+    <div class="button">
   <sec:authorize access="hasRole('ROLE_ADMIN')">
-      <tr>
-        <td>
+
       <spring:url var="deleteUrl" value="/books/delete/{id}">
       <spring:param name="id" value="${books.id}" />
       </spring:url>
       <form:form method="POST" action="${deleteUrl}" modelAttribute="books">
         <input type="submit" value="DELETE" />
       </form:form>
-        </td>
-      </tr>
+
   </sec:authorize>
-    </table>
+    </div>
+
   </div>
 
   <div class="footer">

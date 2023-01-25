@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/resources/**","/images/**","/styles/**");
+        web.ignoring().mvcMatchers("/resources/**","/images/**","/styles/**","/register/**","/addUser");
     }
 
     @Autowired
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/resources/**","/images/**","/styles/**").permitAll()
+                .mvcMatchers("/resources/**","/images/**","/styles/**","/register","/addUser").permitAll()
                 .mvcMatchers("/users/saveUsers").hasRole("ADMIN")
                 .mvcMatchers("/books/saveBooks").hasRole("ADMIN")
                 .mvcMatchers("/authors/saveAuthors").hasRole("ADMIN")
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
-                .loginPage("/auth")
+                .loginPage("/login")
                 .failureUrl("/auth?auth_error=1")
                 .defaultSuccessUrl("/home")
                 .permitAll()

@@ -131,6 +131,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Count:</td>
+                    <td>
+                        <form:input path="amount"  />
+                    </td>
+                </tr>
+                <tr>
                     <td>Genre:</td>
                     <td>
                         <form:radiobuttons path="genre" items="${genre}" />
@@ -142,12 +148,12 @@
                         <form:radiobuttons path="status" items="${status}" />
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Save Changes" />
-                    </td>
-                </tr>
+
             </table>
+                <div class="button">
+                    <input type="submit" value="Save Changes" />
+                </div>
+
         </form:form>
     </div>
 </div>
