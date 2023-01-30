@@ -54,7 +54,7 @@ public class Users extends AbstractEntity {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 300)
     @Column( name = "password",nullable = false)
     private String password;
 

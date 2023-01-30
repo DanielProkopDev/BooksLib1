@@ -126,6 +126,12 @@
                     <td>
                         <spring:message code="label.User.lastname"/>
                     </td>
+                    <td>
+                        <spring:message code="label.User.role"/>
+                    </td>
+                    <td>
+                        <spring:message code="label.User.since"/>
+                    </td>
                 </tr>
                 </thead>
                 <c:forEach var="user" items="${users}">
@@ -145,14 +151,20 @@
                         <td>
                                 ${user.lastName}
                         </td>
+                        <td>
+                                ${user.roles}
+                        </td>
+                        <td>
+                                ${user.registerDate}
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
         </div>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
         <h2>
-            <spring:url var="addUrl" value="{saveUsers}">
-                <spring:param name="saveUsers" value="saveUsers"/>
+            <spring:url var="addUrl" value="register1">
+                <spring:param name="register1" value="register1"/>
             </spring:url>
             <form:form method="GET" action="${addUrl}" modelAttribute="users">
                 <input type="submit" value="ADD" />

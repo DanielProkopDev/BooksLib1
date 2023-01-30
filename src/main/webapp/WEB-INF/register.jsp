@@ -8,6 +8,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -52,12 +53,14 @@
                 <form:input path="lastName" />
             </td>
         </tr>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
         <tr>
             <td>Roles:</td>
             <td>
                 <form:radiobuttons path="roles" items="${roles}" />
             </td>
         </tr>
+        </sec:authorize>
     </table>
 
     <div class="button">

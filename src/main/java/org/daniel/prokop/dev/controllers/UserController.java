@@ -62,10 +62,10 @@ public class UserController {
         return new Users();
     }
 
-    @RequestMapping( value = "/saveUsers",method = RequestMethod.GET)
+   /* @RequestMapping( value = "/register1",method = RequestMethod.GET)
     public String saveUsers() {
-        return "users/saveUsers";
-    }
+        return "redirect:users/register1";
+    }*/
 
     @RequestMapping( value = "/addUser",method = RequestMethod.POST)
     public String addUsers( @ModelAttribute("user1")Users user, Model model){

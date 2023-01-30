@@ -1,8 +1,6 @@
 package org.daniel.prokop.dev.controllers;
 
-import org.daniel.prokop.dev.DAO.Books;
 import org.daniel.prokop.dev.DAO.Users;
-import org.daniel.prokop.dev.DAO.util.BookType;
 import org.daniel.prokop.dev.DAO.util.GenerateSalt;
 import org.daniel.prokop.dev.DAO.util.UserRole;
 import org.daniel.prokop.dev.SERVICE.UserService;
@@ -25,9 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class RegisterController {
-
-
+public class Register1Controller {
     private Logger logger =  LoggerFactory.getLogger(RegisterController.class);
 
     private UserService userService;
@@ -39,7 +35,7 @@ public class RegisterController {
 
 
 
-    public RegisterController(UserService userService) {
+    public Register1Controller(UserService userService) {
         this.userService=userService;
     }
 
@@ -48,13 +44,13 @@ public class RegisterController {
         return new Users();
     }
 
-    @GetMapping("/register")
+    @GetMapping("users/register1")
     public String register(){
         getUsersObject();
-        return "/register";
+        return "users/register1";
     }
-    @RequestMapping( value = "/addUser",method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user3") Users user, Model model) throws NoSuchAlgorithmException, NoSuchProviderException {
+    @RequestMapping( value = "users/addUser1",method = RequestMethod.POST)
+    public String addUser1(@ModelAttribute("user3") Users user, Model model) throws NoSuchAlgorithmException, NoSuchProviderException {
 
         System.out.println(user);
         System.out.println(user.getUsername());
@@ -99,3 +95,5 @@ public class RegisterController {
     }
 
 }
+
+

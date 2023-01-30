@@ -4,16 +4,20 @@ import org.daniel.prokop.dev.DAO.exceptions.ConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
@@ -21,12 +25,30 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 //@EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Resource
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().mvcMatchers("/resources/**","/images/**","/styles/**","/register/**","/addUser");
     }
 
-    @Autowired
+
+   @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
+    }
+
+   /* @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         try {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -39,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         } catch (Exception e) {
             throw new ConfigurationException("In-Memory authentication was not configured.", e);
         }
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -75,5 +97,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         repo.setParameterName("_csrf");
         repo.setHeaderName("X-CSRF-TOKEN");
         return repo;
+    }
+
+
+
+    @Bean
+    public DaoAuthenticationProvider authProvider(){
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+        return authProvider;
     }
 }
