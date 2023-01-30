@@ -40,4 +40,8 @@ public interface BooksRepo extends JpaRepository<Books,Long> {
     void updateBookByTitle(@Param("id")Long id,@Param("tl")String title, @Param("fname") String firstname, @Param("lname") String lastname,
                                       @Param("pr") Integer price, @Param("status")BookStatus status,@Param("genre") BookType genre,
                                       @Param("dtds") String detaileddescription,@Param("cnt") Integer amount,@Param("notes") String notes);
+
+    @Modifying
+    @Query("update Books set amount=:cnt where id=:id")
+    void updateBookAmountById(@Param("cnt") Integer amount,@Param("id") Long id);
 }

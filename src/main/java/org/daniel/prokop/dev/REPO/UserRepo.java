@@ -46,6 +46,10 @@ public interface UserRepo extends JpaRepository<Users,Long> {
     @Query("update Users set username=:un, firstName=:fn, lastName=:ln, password=:pw where id=:id")
     void updateUser(@Param("id")Long id,@Param("un")String username,@Param("fn")String firstName,@Param("ln") String lastName,@Param("pw") String password);
 
+    @Modifying
+    @Query("update Users set userSet=:us where username=:un")
+    void updateStorageByUsername(@Param("us") Set<Books> booksSet,@Param("un")String username);
+
    /* @Query("select p from Person p where p.username=:un")
     Set<Books> findStorageByUsername(@Param("un") String username);*/
 

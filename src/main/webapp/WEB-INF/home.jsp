@@ -111,6 +111,11 @@
     </div>
 
     <div class="footer">
+        <sec:authorize access="isAuthenticated()">
+            <p><spring:message code="user.loggedin"/>:
+                <sec:authentication property="principal.username"/>
+            </p>
+        </sec:authorize>
         <p><spring:message code="footer.text"/></p>
     </div>
 </div>

@@ -44,7 +44,7 @@ public interface UserService {
 
     /* Set<Books> findStorageByUsername(String username);*/
 
-    Optional<Users> updateStorageByUsername(String username, Set<Books> newList);
+    void updateStorageByUsername(String username, Set<Books> newList);
 
     void updateUser(@Param("id")Long id,@Param("un")String username,@Param("fn")String firstName,@Param("ln") String lastName,@Param("pw") String password);
 

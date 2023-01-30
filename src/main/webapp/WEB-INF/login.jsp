@@ -26,15 +26,6 @@
     <div class="content">
         <div class="login">
             <h4><spring:message code="login.hint"/></h4>
-            <table>
-                <tr><th><spring:message code="login.username"/></th>
-                    <th><spring:message code="login.password"/></th>
-                    <th><spring:message code="login.role"/></th>
-                </tr>
-                <tr><td>dawid</td><td>dawid</td><td>ROLE_USER</td></tr>
-                <tr><td>dawid1</td><td>dawid1</td><td>ROLE_USER,ROLE_ADMIN</td></tr>
-                <tr><td>admin</td><td>admin</td><td>ROLE_ADMIN</td></tr>
-            </table>
 
             <p><h3><spring:message code="login.message"/></h3></p>
 

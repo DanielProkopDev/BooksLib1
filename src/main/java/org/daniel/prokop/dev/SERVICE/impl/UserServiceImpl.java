@@ -105,8 +105,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<Users> updateStorageByUsername(String username, Set<Books> newList) {
-        return Optional.empty();
+    public void updateStorageByUsername(String username, Set<Books> newList) {
+         userRepo.updateStorageByUsername(newList,username);
     }
 
     @Override

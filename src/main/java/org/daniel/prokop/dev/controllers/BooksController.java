@@ -2,14 +2,18 @@ package org.daniel.prokop.dev.controllers;
 
 import org.daniel.prokop.dev.DAO.Author;
 import org.daniel.prokop.dev.DAO.Books;
+import org.daniel.prokop.dev.DAO.Users;
 import org.daniel.prokop.dev.DAO.util.BookStatus;
 import org.daniel.prokop.dev.DAO.util.BookType;
 import org.daniel.prokop.dev.SERVICE.AuthorService;
 import org.daniel.prokop.dev.SERVICE.BooksService;
+import org.daniel.prokop.dev.SERVICE.UserService;
 import org.daniel.prokop.dev.SERVICE.wrappers.BookWrapper;
 import org.daniel.prokop.dev.webexceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.daniel.prokop.dev.DAO.util.Functions.COMPARATOR_BY_ID;
 
@@ -31,9 +36,12 @@ public class BooksController {
 
     private AuthorService authorService;
 
-    public BooksController(BooksService booksService, AuthorService authorService) {
+    private UserService userService;
+
+    public BooksController(BooksService booksService, AuthorService authorService, UserService userService) {
         this.booksService = booksService;
         this.authorService = authorService;
+        this.userService = userService;
     }
 
     private Books oldBook;
@@ -185,6 +193,26 @@ public class BooksController {
         books.sort(COMPARATOR_BY_ID);
 
         model.addAttribute("books", books);
+
+        return "redirect:/books/list";
+    }
+
+    @RequestMapping(value = "/buy/{id}", method = RequestMethod.POST)
+    public String buyBook(@ModelAttribute("books")Books book, @AuthenticationPrincipal User activeUser, Model model){
+
+        Books someBook = booksService.findBooksById(book.getId()).get();
+        System.out.println(someBook.getAmount());
+        System.out.println(book.getAmount());
+        Users user = userService.findByUsername(activeUser.getUsername()).get();
+        user.addBook(book);
+        userService.save(user);
+        booksService.updateBookAmountById(someBook.getAmount()-1,someBook.getId());
+
+
+       /**FOR SOME REASON HIBERNATE ALWAYS READS AND OPENS SET<BOOKS> AND TRY TO PASS CONTENT INSTEAD OF WHOLE SET - Data Access Layer issue?
+        //Set<Books> booksSet = user.getUserSet();
+        //booksSet.add(book);
+         //userService.updateStorageByUsername(activeUser.getUsername(), booksSet);*/
 
         return "redirect:/books/list";
     }

@@ -113,4 +113,9 @@ public class BooksServiceImpl implements BooksService {
                                              Integer price, BookStatus status, BookType bookType, String detaileddescription,Integer amount, String notes) {
          booksRepo.updateBookByTitle(id,title,authorfname,authorlname,price,status,bookType,detaileddescription,amount,notes);
     }
+
+    @Override
+    public void updateBookAmountById(Integer amount, Long id) {
+        booksRepo.updateBookAmountById(amount,id);
+    }
 }

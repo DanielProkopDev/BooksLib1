@@ -123,6 +123,10 @@
                 <th><spring:message code="label.User.since"/></th>
                 <td>${user.registerDate}</td>
             </tr>
+            <tr>
+                <th><spring:message code="label.User.set"/></th>
+                <td>${user.userSet}</td>
+            </tr>
         </table>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
         <h2>

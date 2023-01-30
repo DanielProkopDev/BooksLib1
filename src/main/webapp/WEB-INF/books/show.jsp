@@ -169,6 +169,18 @@
 
   </sec:authorize>
     </div>
+    <div class="button">
+      <sec:authorize access="hasRole('ROLE_USER')">
+
+        <spring:url var="buyUrl" value="/books/buy/{id}">
+          <spring:param name="id" value="${books.id}" />
+        </spring:url>
+        <form:form method="POST" action="${buyUrl}" modelAttribute="books">
+          <input type="submit" value="BUY" />
+        </form:form>
+
+      </sec:authorize>
+    </div>
 
   </div>
 

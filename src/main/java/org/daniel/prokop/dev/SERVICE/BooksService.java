@@ -46,4 +46,5 @@ public interface BooksService {
 
     void updateBookByTitle(Long id,String title,String authorfname,String authorlname,
                                       Integer price,BookStatus status,BookType bookType,String detaileddescription,Integer amount,String notes);
+    void updateBookAmountById(Integer amount, Long id);
 }
