@@ -64,6 +64,7 @@
                     <a href="<c:url value="/"/>"><spring:message code="menu.home"/></a>
                 </c:if>
             </li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li><c:if test="${menuTab eq 'persons'}">
                 <strong><a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a></strong>
             </c:if>
@@ -71,13 +72,31 @@
                     <a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a>
                 </c:if>
             </li>
-            <li><c:if test="${menuTab eq 'users'}">
-                <strong><a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a></strong>
-            </c:if>
-                <c:if test="${menuTab != 'users'}">
-                    <a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+
+                <li><c:if test="${menuTab eq 'users'}">
+                    <strong><a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a></strong>
                 </c:if>
-            </li>
+                    <c:if test="${menuTab != 'users'}">
+                        <a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a>
+                    </c:if>
+                </li>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_USER')">
+
+                <spring:url var="showUrl" value="MyProfile/{id}">
+                    <spring:param name="id" value="${user.id}"/>
+                </spring:url>
+
+                <li><c:if test="${menuTab eq 'profile'}">
+                    <strong><a href="${showUrl}"><spring:message code="menu.profile"/></a></strong>
+                </c:if>
+                    <c:if test="${menuTab != 'profile'}">
+                        <a href="${showUrl}"><spring:message code="menu.profile"/></a>
+                    </c:if>
+                </li>
+            </sec:authorize>
             <li><c:if test="${menuTab eq 'authors'}">
                 <strong><a href="<c:url value="/authors/list"/>"><spring:message code="menu.authors"/></a></strong>
             </c:if>

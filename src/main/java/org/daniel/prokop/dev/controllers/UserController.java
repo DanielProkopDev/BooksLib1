@@ -112,7 +112,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit/editUser",method = RequestMethod.POST)
-    public String updateAuthor(@ModelAttribute("users") Users user, Model model){
+    public String updateUser(@ModelAttribute("users") Users user, Model model){
 
         System.out.println("Updating:"+ oldUser);
         System.out.println("New Author:" + user);

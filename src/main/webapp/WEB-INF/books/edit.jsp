@@ -66,20 +66,25 @@
                     <a href="<c:url value="/"/>"><spring:message code="menu.home"/></a>
                 </c:if>
             </li>
-            <li><c:if test="${menuTab eq 'persons'}">
-                <strong><a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a></strong>
-            </c:if>
-                <c:if test="${menuTab != 'persons'}">
-                    <a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><c:if test="${menuTab eq 'persons'}">
+                    <strong><a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a></strong>
                 </c:if>
-            </li>
-            <li><c:if test="${menuTab eq 'users'}">
-                <strong><a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a></strong>
-            </c:if>
-                <c:if test="${menuTab != 'users'}">
-                    <a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a>
+                    <c:if test="${menuTab != 'persons'}">
+                        <a href="<c:url value="/persons/list"/>"><spring:message code="menu.persons"/></a>
+                    </c:if>
+                </li>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+
+                <li><c:if test="${menuTab eq 'users'}">
+                    <strong><a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a></strong>
                 </c:if>
-            </li>
+                    <c:if test="${menuTab != 'users'}">
+                        <a href="<c:url value="/users/list"/>"><spring:message code="menu.users"/></a>
+                    </c:if>
+                </li>
+            </sec:authorize>
             <li><c:if test="${menuTab eq 'authors'}">
                 <strong><a href="<c:url value="/authors/list"/>"><spring:message code="menu.authors"/></a></strong>
             </c:if>

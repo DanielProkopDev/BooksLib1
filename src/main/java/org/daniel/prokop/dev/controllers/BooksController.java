@@ -50,8 +50,10 @@ public class BooksController {
      * Handles requests to list all books.
      */
     @GetMapping(value = "/list")
-    public String list(Model model) {
+    public String list(Model model, @AuthenticationPrincipal User activeUser) {
         logger.info("Populating model with list...");
+        Users user = userService.findByUsername(activeUser.getUsername()).get();
+        model.addAttribute("user",user);
         List<Books> books =  booksService.findAll();
         System.out.println(books);
         books.sort(COMPARATOR_BY_ID);
@@ -64,7 +66,9 @@ public class BooksController {
      * Handles requests to show detail about one book.
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String show(@PathVariable Long id, Model model) {
+    public String show(@PathVariable Long id, Model model, @AuthenticationPrincipal User activeUser) {
+        Users user = userService.findByUsername(activeUser.getUsername()).get();
+        model.addAttribute("user",user);
         Books books = booksService.findBooksById(id).orElseThrow(() -> new NotFoundException(Books.class, id));
         model.addAttribute("books", books);
         return "books/show";
@@ -90,7 +94,7 @@ public class BooksController {
     public Books getBooksObject() {
         return new Books();
     }
-
+    /** ArrayList of Enums which is used by jsp file to generate radio buttons*/
     @ModelAttribute(value = "genre")
     public List<BookType> getGenreList() {
        List<BookType> bookTypeList = new ArrayList<>();
@@ -102,7 +106,7 @@ public class BooksController {
         bookTypeList.add(BookType.SCIFI);
         return bookTypeList;
     }
-
+/** ArrayList of Enums which is used by jsp file to generate radio buttons*/
     @ModelAttribute(value = "status")
         public List<BookStatus> getStatusList(){
         List<BookStatus> bookStatusList = new ArrayList<>();
@@ -113,7 +117,7 @@ public class BooksController {
         return bookStatusList;
     }
 
-
+/** Adds book to database and checks if author already exist in db, if not it creates author - body needs trimming coming soon*/
     @RequestMapping( value = "/addBook",method = RequestMethod.POST)
     public String addBooks( @ModelAttribute("books1")Books book, Model model){
 
@@ -158,7 +162,7 @@ public class BooksController {
         return "redirect:/books/list";
 
     }
-
+/** Deletes book from db - body needs trimming*/
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.POST)
     public String deleteBooks(@PathVariable(value = "id") Long id,Model model){
 
@@ -177,7 +181,7 @@ public class BooksController {
 
         return "redirect:/books/list";
     }
-
+    /** Edits book from db - body needs trimming*/
     @RequestMapping(value = "/edit/editBook",method = RequestMethod.POST)
     public String updateBooks(@ModelAttribute("books") Books book, Model model){
 
@@ -197,6 +201,13 @@ public class BooksController {
         return "redirect:/books/list";
     }
 
+    /**FOR SOME REASON HIBERNATE ALWAYS OPENS SET<BOOKS> AND TRY TO PASS CONTENT INSTEAD OF WHOLE SET - Data Access Layer issue?
+     * as well for some reason Books book doesnt pass var amount as for example books.getAmount() will return null, in function above it works and it is using same model "books" and in both cases var is exposed
+     * in the view, model isn't empty because it actually adds the right book to the user(by id), needs debugging?
+     //Set<Books> booksSet = user.getUserSet();
+     //booksSet.add(book);
+     //userService.updateStorageByUsername(activeUser.getUsername(), booksSet);*/
+
     @RequestMapping(value = "/buy/{id}", method = RequestMethod.POST)
     public String buyBook(@ModelAttribute("books")Books book, @AuthenticationPrincipal User activeUser, Model model){
 
@@ -209,10 +220,7 @@ public class BooksController {
         booksService.updateBookAmountById(someBook.getAmount()-1,someBook.getId());
 
 
-       /**FOR SOME REASON HIBERNATE ALWAYS READS AND OPENS SET<BOOKS> AND TRY TO PASS CONTENT INSTEAD OF WHOLE SET - Data Access Layer issue?
-        //Set<Books> booksSet = user.getUserSet();
-        //booksSet.add(book);
-         //userService.updateStorageByUsername(activeUser.getUsername(), booksSet);*/
+
 
         return "redirect:/books/list";
     }
