@@ -41,7 +41,7 @@ public class Books extends AbstractEntity{
 
     @NotNull
     @Column(name="price")
-    private Integer price;
+    private BigDecimal price;
 
 
     @Column(name="amount")
@@ -110,11 +110,11 @@ public class Books extends AbstractEntity{
         this.detailedDescription = detailedDescription;
     }
 
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
